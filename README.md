@@ -73,7 +73,7 @@ httpStats.measure({
 {
     "cpuAvailable": true,
     "memoryAvailable": true,
-    "stats": [
+    "steps": [
         {
             "concurrency": 1,
             "stats": {
