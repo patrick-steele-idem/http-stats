@@ -1,0 +1,12 @@
+{
+    "tags": {
+        "embed-file": {
+            "renderer": "./embed-file-tag",
+            "attributes": {
+                "path": {
+                    "type": "path"
+                }
+            }
+        }
+    }
+}

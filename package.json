@@ -1,0 +1,44 @@
+{
+  "name": "http-stats",
+  "description": "Module for benchmarking an HTTP server and getting stats using a callback",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patrick-steele-idem/http-stats.git"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha --ui bdd --reporter spec ./test && node_modules/.bin/jshint lib"
+  },
+  "bin": {
+    "http-stats": "bin/http-stats"
+  },
+  "keywords": [
+    "http",
+    "performance",
+    "stats",
+    "server"
+  ],
+  "devDependencies": {
+    "mocha": "~1.15.1",
+    "chai": "~1.8.1",
+    "jshint": "~2.3.0",
+    "express": "^4.2.0"
+  },
+  "author": "Patrick Steele-Idem <pnidem@gmail.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "measured": "^0.1.6",
+    "raptor-templates": "^1.0.2",
+    "mkdirp": "^0.5.0",
+    "async": "^0.8.0",
+    "usage": "^0.3.10",
+    "raptor-args": "^0.1.13-beta",
+    "jsonminify": "^0.2.3",
+    "shortstop": "^1.0.0",
+    "jquery": "^2.1.0"
+  },
+  "version": "0.1.0-beta"
+}
