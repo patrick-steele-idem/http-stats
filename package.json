@@ -1,6 +1,6 @@
 {
   "name": "http-stats",
-  "description": "Module for benchmarking an HTTP server and getting stats using a callback",
+  "description": "Module for benchmarking HTTP servers with support for metrics such as response time, requests per second and CPU and memory usage. Generates friendly HTML reports and offers both a command line interface and a JavaScript API.",
   "repository": {
     "type": "git",
     "url": "https://github.com/patrick-steele-idem/http-stats.git"
@@ -16,7 +16,10 @@
     "http",
     "performance",
     "stats",
-    "server"
+    "server",
+    "graph",
+    "load testing",
+    "capacity planning"
   ],
   "devDependencies": {
     "mocha": "~1.15.1",
