@@ -17,7 +17,7 @@ describe('http-stats' , function() {
         app.get('/', function(req, res) {
             setTimeout(function() {
                 res.send({hello: 'world'});
-            }, 100);
+            }, 10);
         });
 
         server = http.createServer(app);
@@ -33,30 +33,10 @@ describe('http-stats' , function() {
         done();
     });
 
-    it('should measure correctly', function(done) {
-
-        httpStats.measure(
-            {
-                url: 'http://localhost:' + port,
-                concurrency: 5,
-                maxRequests: 10
-            },
-            function(err, results) {
-                if (err) {
-                    return done(err);
-                }
-
-                console.log('results: ', results);
-
-                expect(results && typeof results === 'object').to.equal(true);
-                done();
-            });
-    });
-
     it('should measure stats correctly for variable settings', function(done) {
         this.timeout(0);
 
-        httpStats.measureVariable(
+        httpStats.measure(
             {
                 url: 'http://localhost:' + port,
                 concurrency: 5,
@@ -70,17 +50,17 @@ describe('http-stats' , function() {
                     return done(err);
                 }
 
-                console.log('results: ', JSON.stringify(results, null, 4));
+                // console.log('results: ', JSON.stringify(results, null, 4));
 
                 expect(results && typeof results === 'object').to.equal(true);
                 done();
             });
     });
 
-    it('should measure stats correctly for a spawned server and using variable settings', function(done) {
+    it('should measure stats correctly for a spawned server', function(done) {
         this.timeout(0);
 
-        httpStats.measureVariable(
+        httpStats.measure(
             {
                 url: 'http://localhost:9992',
                 spawn: ['node', nodePath.join(__dirname, 'test-server.js')],
@@ -94,17 +74,18 @@ describe('http-stats' , function() {
                     return done(err);
                 }
 
-                console.log('results: ', JSON.stringify(results, null, 4));
+                // console.log('results: ', JSON.stringify(results, null, 4));
 
                 expect(results && typeof results === 'object').to.equal(true);
+                expect(results.steps[0].stats.usage.length).to.equal(1);
                 done();
             });
     });
 
-    it.only('should generate a report correctly', function(done) {
+    it('should generate a report correctly', function(done) {
         this.timeout(0);
 
-        httpStats.measureVariable(
+        httpStats.measure(
             {
                 url: 'http://localhost:' + port,
                 spawn: ['node', nodePath.join(__dirname, 'test-server.js')],
@@ -114,13 +95,15 @@ describe('http-stats' , function() {
                 stepRequests: 10,
                 concurrencyIncrement: 1
             },
-            function(err, data) {
+            function(err, results) {
                 if (err) {
                     return done(err);
                 }
 
+                // console.log('results: ', JSON.stringify(results, null, 4));
+
                 httpStats.generateReport(
-                    data,
+                    results,
                     {
                         outputDir: nodePath.join(__dirname, 'build/report01'),
                         type: 'default'
@@ -132,6 +115,33 @@ describe('http-stats' , function() {
 
                         done();
                     });
+            });
+    });
+
+    it('should generate a report correctly when provided in options', function(done) {
+        this.timeout(0);
+
+        httpStats.measure(
+            {
+                url: 'http://localhost:' + port,
+                spawn: ['node', nodePath.join(__dirname, 'test-server.js')],
+                concurrency: 5,
+                beginConcurrency: 1,
+                endConcurrency: 3,
+                stepRequests: 10,
+                concurrencyIncrement: 1,
+                report: {
+                    outputDir: nodePath.join(__dirname, 'build/report02'),
+                    type: 'default'
+                }
+            },
+            function(err, results) {
+                if (err) {
+                    return done(err);
+                }
+
+                expect(results && typeof results === 'object').to.equal(true);
+                done();
             });
     });
 });

@@ -275,6 +275,7 @@ httpStats.measure({
 * Add documentation for all supported configuration options
 * Integrate support for [pm2](https://github.com/unitech/pm2) to query for process IDs using the [pm2-interface](https://github.com/Unitech/pm2-interface) module.
 * Provide ability to compare differences between statistics gathered at different times (to detect performance decreases/increases)
+* Improve tests
 
 # Maintainers
 
