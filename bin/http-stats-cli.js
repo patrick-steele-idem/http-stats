@@ -113,21 +113,7 @@ function measure(config) {
         }); 
 }
 
-if (configFile) {
-    configDir = nodePath.dirname(configFile);
-    config = JSON.parse(jsonminify(fs.readFileSync(configFile, 'utf8')));
-    var resolver = shortstop.create();
-    resolver.use('path', shortstopPathResolver);
-    resolver.resolve(config, function(err, config) {
-        if (err) {
-            console.error('Error reading config file. Exception: ', err);
-            return;
-        }
-
-        measure(config);
-    });
-} else {
-    config = {
+var config = {
         url: args.url,
         beginConcurrency: args.beginConcurrency,
         endConcurrency: args.endConcurrency,
@@ -137,14 +123,35 @@ if (configFile) {
         pids: args.pids
     };
 
-    if (args.reportDir) {
-        config.report = {
-            outputDir: nodePath.resolve(process.cwd(), args.reportDir)
-        };
-    }
-
-    console.log('Config: ' + JSON.stringify(config, null, 4));
-
-    measure(config);
+if (args.reportDir) {
+    config.report = {
+        outputDir: nodePath.resolve(process.cwd(), args.reportDir)
+    };
 }
+
+if (configFile) {
+    configDir = nodePath.dirname(configFile);
+    var configFromFile = JSON.parse(jsonminify(fs.readFileSync(configFile, 'utf8')));
+    var resolver = shortstop.create();
+    resolver.use('path', shortstopPathResolver);
+    resolver.resolve(configFromFile, function(err, configFromFile) {
+        if (err) {
+            console.error('Error reading config file. Exception: ', err);
+            return;
+        }
+
+        for (var k in config) {
+            if (config.hasOwnProperty(k) && config[k] != null) {
+                configFromFile[k] = config[k];
+            }
+        }
+
+        console.log('Config: ' + JSON.stringify(configFromFile, null, 4));
+        measure(configFromFile);
+    });
+} else {
+    console.log('Config: ' + JSON.stringify(config, null, 4));
+    measure(config);    
+}
+
 

@@ -7,15 +7,15 @@
 <body>
     <div id="reqPerSecContainer" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
     <div id="responseTimeContainer" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
-    <div id="cpuContainer" style="min-width: 310px; height: 300px; margin: 0 auto" c-if="data.showCPU"></div>
-    <div id="memoryContainer" style="min-width: 310px; height: 300px; margin: 0 auto" c-if="data.showMemory"></div>
+    <div id="cpuContainer" style="min-width: 310px; height: 300px; margin: 0 auto" if="data.showCPU"></div>
+    <div id="memoryContainer" style="min-width: 310px; height: 300px; margin: 0 auto" if="data.showMemory"></div>
 
     <embed-file path="../../../node_modules/jquery/dist/jquery.min.js"/>
     <embed-file path="../../../third-party/highcharts/js/highcharts.js"/>
     <embed-file path="../../../third-party/highcharts/js/modules/exporting.js"/>
     <embed-file path="./http-stats-report-client.js"/>
     
-    <script type="text/javascript" c-space="preserve">
+    <script type="text/javascript" space="preserve">
     window.showHttpStatsReport($!{data.results});
     </script>
 </body>
