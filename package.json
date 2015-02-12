@@ -33,15 +33,15 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "measured": "^0.1.6",
-    "marko": "^1.0.2",
-    "mkdirp": "^0.5.0",
     "async": "^0.8.0",
-    "usage": "^0.3.10",
-    "raptor-args": "^1.0.0",
+    "jquery": "^2.1.0",
     "jsonminify": "^0.2.3",
+    "marko": "^1.0.2",
+    "measured": "^0.1.6",
+    "mkdirp": "^0.5.0",
+    "raptor-args": "^1.0.0",
     "shortstop": "^1.0.0",
-    "jquery": "^2.1.0"
+    "usage": "^0.5.0"
   },
   "version": "1.0.0"
 }
